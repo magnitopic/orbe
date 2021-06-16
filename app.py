@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from py.primos import generaPrimos
+#from py.primos import generaPrimos
 from flask import Flask, request, render_template
 from flask.wrappers import Response
 import git
