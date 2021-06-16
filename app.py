@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from flask import Flask, request
+from py.primos import generaPrimos
+from flask import Flask, request, render_template
 from flask.wrappers import Response
 import git
 
@@ -21,5 +22,5 @@ def git_update():
   return '', 200
 
 @app.route('/')
-def hello():
-  return '<h1>Proyectos Python con Flask</h1><p>Las ventajas de programar en Python y poderlo mostrar en <strong>página web</strong>.</p>'
+def index():
+  return render_template("index.html")
