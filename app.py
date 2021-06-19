@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from py import primos
+#from py import primos
 from flask import Flask, request, render_template
 from flask.wrappers import Response
 import git
@@ -20,7 +20,7 @@ def git_update():
 def index():
   return render_template("index.html")
 
-@app.route('/primos')
-def primos():
-  n=200
-  return render_template("primos.html", lista=primos.generaPrimos(n))
+#@app.route('/primos')
+#def primos():
+#  n=200
+#  return render_template("primos.html", lista=primos.generaPrimos(n))
