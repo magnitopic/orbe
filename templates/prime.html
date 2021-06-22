@@ -6,16 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../static/imgs/favicon.ico">
-    <title>Home</title>
+    <title>Prime Numbers</title>
 </head>
 
 <body>
-    <h1>Projects in Flask</h1>
-    <p>We can code the backend of our site in <strong>Python</strong> and it will show on the web.</p>
-    <ol>
-        <li><a href="/prime">Generate prime numbers</a></li>
-        <li>Galton Board</li>
-    </ol>
+    <h1>{{ title }}</h1>
+    <ul>
+        {% for value in list %}
+        <li>{{ value }}</li>
+        {% endfor %}
+        <ul>
 </body>
 
 </html>
