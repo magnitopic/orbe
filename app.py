@@ -25,7 +25,7 @@ def index():
 @app.route('/primos')
 def primos():
   n=200
-  return render_template("primos.html", lista=generaPrimos(n))
+  return render_template("primos.html", lista=generaPrimos(n), titulo="Números primos hasta "+str(n))
 
-if __name__=="__main__":
-  app.run(debug=True)
+'''if __name__=="__main__":
+  app.run(debug=True)'''
