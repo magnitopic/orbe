@@ -3,7 +3,9 @@
 #from py import primos
 from flask import Flask, request, render_template
 from flask.wrappers import Response
+from py.primos import generaPrimos
 import git
+
 
 app = Flask(__name__)
 
@@ -20,7 +22,10 @@ def git_update():
 def index():
   return render_template("index.html")
 
-#@app.route('/primos')
-#def primos():
-#  n=200
-#  return render_template("primos.html", lista=primos.generaPrimos(n))
+@app.route('/primos')
+def primos():
+  n=200
+  return render_template("primos.html", lista=generaPrimos(n))
+
+if __name__=="__main__":
+  app.run(debug=True)
