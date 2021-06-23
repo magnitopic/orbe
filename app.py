@@ -23,10 +23,13 @@ def git_update():
 def index():
   return render_template("index.html")
 
-@app.route('/prime')
+@app.route('/prime', methods=["GET","POST"])
 def primos():
-  n=200
-  return render_template("prime.html", list=makePrime(n), title="First "+str(n)+" prime numbers")
+  if request.method == 'POST':
+    n=request.form["number"]
+    return render_template("prime.html", list=makePrime(int(n)), title="First "+n+" prime numbers")
+  else:
+    return render_template("prime.html", list="", title="First prime numbers")
 
-'''if __name__=="__main__":
-  app.run(debug=True)'''
+if __name__=="__main__":
+  app.run(debug=True)

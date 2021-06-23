@@ -11,6 +11,11 @@
 
 <body>
     <h1>{{ title }}</h1>
+    <form action="" method="POST">
+        <label for="number">Up to what number?</label>
+        <input name="number" id="number" type="text">
+        <input type="submit">
+    </form>
     <ul>
         {% for value in list %}
         <li>{{ value }}</li>
