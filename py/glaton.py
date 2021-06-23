@@ -19,6 +19,6 @@ def galtonboard(levels):
     plt.bar(X + 0.00, lanes, width=0.25)
 
     #Gives the png a unique name
-    route = './static/imgs/'+str(abs(hash(datetime.now())))+'.png'
+    route = 'static/imgs/'+str(abs(hash(datetime.now())))+'.png'
     plt.savefig(route)
     return lanes,route
