@@ -4,7 +4,7 @@
 from flask import Flask, request, render_template
 from flask.wrappers import Response
 from py.prime import makePrime
-from py.glaton import galtonboard
+from py.galton import galtonboard
 import git
 
 
