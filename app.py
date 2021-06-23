@@ -41,5 +41,6 @@ def glaton():
   else:
     return render_template("galton.html")
 
-if __name__=="__main__":
-  app.run(debug=True)
+#Comment this on production
+'''if __name__=="__main__":
+  app.run(debug=True)'''
