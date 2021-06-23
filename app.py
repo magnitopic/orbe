@@ -4,6 +4,7 @@
 from flask import Flask, request, render_template
 from flask.wrappers import Response
 from py.prime import makePrime
+from py.glaton import galtonboard
 import git
 
 
@@ -30,6 +31,15 @@ def primos():
     return render_template("prime.html", list=makePrime(int(n)), title="First "+n+" prime numbers")
   else:
     return render_template("prime.html", list="", title="First prime numbers")
+
+@app.route('/galton', methods=["GET","POST"])
+def glaton():
+  if request.method=='POST':
+    result=galtonboard(int(request.form["number"]))
+    print(result)
+    return render_template("galton.html",structure=result[0],URL=result[1])
+  else:
+    return render_template("galton.html")
 
 if __name__=="__main__":
   app.run(debug=True)

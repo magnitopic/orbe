@@ -254,3 +254,7 @@ pip-selfcheck.json
 
 # End of https://www.toptal.com/developers/gitignore/api/linux,venv,flask,python
 .vscode
+
+static/imgs/*
+!static/imgs/crystalball.png
+!static/imgs/favicon.ico
