@@ -14,6 +14,8 @@
         <input type="submit">
     </form>
     <p>{{ structure }}</p>
-    <img src="{{ URL }}" alt="">
+    {% if URL!="" %}
+    <img src="{{ url_for("static", filename='imgs/'+URL+'.png') }}" alt="">
+    {% endif %}
 </body>
 </html>
