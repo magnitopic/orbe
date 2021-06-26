@@ -11,7 +11,10 @@ def galtonboard(levels):
             stored += randint(0, 1)
         lanes[stored] += 1
 
-    X = np.arange(-((len(lanes)/2)-.5), (len(lanes)/2)+.5)
+    if len(lanes)%2==0:
+        X = np.arange(-((len(lanes)/2)-1), (len(lanes)/2)+1)
+    else:
+        X = np.arange(-((len(lanes)/2)-.5), (len(lanes)/2)+.5)
     #Fixes thread error: https://stackoverflow.com/questions/14694408/runtimeerror-main-thread-is-not-in-main-loop
     plt.switch_backend('agg')
 
