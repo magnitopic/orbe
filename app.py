@@ -34,7 +34,7 @@ def primos():
 
 @app.route('/galton', methods=["GET","POST"])
 def glaton():
-  if request.method=='POST':
+  if ((request.method=='POST') and (int(request.form["number"])>1)):
     result=galtonboard(int(request.form["number"]))
     print(result)
     return render_template("galton.html",structure=result[0],URL=result[1])
