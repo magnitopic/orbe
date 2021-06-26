@@ -39,7 +39,7 @@ def glaton():
     print(result)
     return render_template("galton.html",structure=result[0],URL=result[1])
   else:
-    return render_template("galton.html")
+    return render_template("galton.html",URL="")
 
 #Comment this on production
 '''if __name__=="__main__":
