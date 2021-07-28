@@ -36,11 +36,11 @@ def primos():
 def glaton():
   if ((request.method=='POST') and (request.form["number"]!="") and (int(request.form["number"])>1)):
     result=galtonboard(int(request.form["number"]))
-    print(result)
+    print("static/imgs/"+result[1]+".png")
     return render_template("galton.html",structure=result[0],URL=result[1])
   else:
     return render_template("galton.html",URL="")
 
 #Comment this on production
-'''if __name__=="__main__":
-  app.run(debug=True)'''
+if __name__=="__main__":
+  app.run(debug=True)
