@@ -1,4 +1,6 @@
 import numpy as np
+import os
+import glob
 import matplotlib.pyplot as plt
 from datetime import datetime
 from random import randint
@@ -21,6 +23,9 @@ def galtonboard(levels):
     plt.suptitle('Galton Board')
     plt.bar(X + 0.00, lanes, width=0.25)
 
+    files = glob.glob('static/imgs/*.png')
+    for f in files:
+        os.remove(f)
     #Gives the png a unique name
     route = str(abs(hash(datetime.now())))
     plt.savefig('static/imgs/'+str(route)+'.png')

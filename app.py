@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 #from py import primos
 from flask import Flask, request, render_template, jsonify
-from flask_json import FlaskJSON, JsonError, json_response
 from flask.wrappers import Response
 from py.prime import makePrime
 from py.galton import galtonboard
