@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #from py import primos
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
+from flask_json import FlaskJSON, JsonError, json_response
 from flask.wrappers import Response
 from py.prime import makePrime
 from py.galton import galtonboard
-import git
+import git # GitPython library 
 
 
 app = Flask(__name__)
@@ -23,6 +24,20 @@ def git_update():
 @app.route('/')
 def index():
   return render_template("index.html")
+
+@app.route('/api1')
+def api1():
+  #JSON can be returned directlly like so:
+  return jsonify({"clave":"valor"})
+
+@app.route('/api2')
+def api2():
+  #Or you can open a JSON file and serve it's contents
+  file = open("./api/test.json", "rt", encoding="utf-8")
+  archivoJson = file.readlines()
+  file.close()
+  print(archivoJson)
+  return jsonify(archivoJson)
 
 @app.route('/prime', methods=["GET","POST"])
 def primos():
