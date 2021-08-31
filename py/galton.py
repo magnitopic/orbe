@@ -23,5 +23,5 @@ def galtonboard(levels):
 
     #Gives the png a unique name
     route = str(abs(hash(datetime.now())))
-    plt.savefig('static/imgs/'+route+'.png')
+    plt.savefig('static/imgs/'+str(route)+'.png')
     return lanes,route
