@@ -23,10 +23,20 @@ def galtonboard(levels):
     plt.suptitle('Galton Board')
     plt.bar(X + 0.00, lanes, width=0.25)
 
+    # Deletes older boards images
     files = glob.glob('static/imgs/*.png')
     for f in files:
         os.remove(f)
+
     #Gives the png a unique name
-    route = str(abs(hash(datetime.now())))
-    plt.savefig('static/imgs/'+str(route)+'.png')
+    name = str(abs(hash(datetime.now())))
+
+    # Checks if the images will be saved where we think
+    dir_path=os.path.dirname(os.path.realpath(__file__))
+    if "orbe/py" not in dir_path:
+        route='~/orbe/static/imgs/'+str(name)+'.png'
+        
+    else:
+        route='static/imgs/'+str(name)+'.png'
+    plt.savefig(route)
     return lanes,route
