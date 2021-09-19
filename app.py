@@ -5,7 +5,8 @@ from flask import Flask, request, render_template, jsonify
 from flask.wrappers import Response
 from py.prime import makePrime
 from py.galton import galtonboard
-import git # GitPython library 
+import git # GitPython library
+import os
 
 
 app = Flask(__name__)
@@ -22,6 +23,7 @@ def git_update():
 
 @app.route('/')
 def index():
+  print(os.getcwd())
   return render_template("index.html")
 
 @app.route('/api1')
@@ -54,6 +56,8 @@ def glaton():
     return render_template("galton.html",structure=result[0],URL=result[1])
   else:
     return render_template("galton.html",URL="")
+
+
 
 #Comment this on production
 if __name__=="__main__":

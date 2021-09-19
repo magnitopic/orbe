@@ -258,3 +258,5 @@ pip-selfcheck.json
 static/imgs/*
 !static/imgs/crystalball.jpeg
 !static/imgs/favicon.ico
+
+orbe

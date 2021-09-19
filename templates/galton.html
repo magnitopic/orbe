@@ -15,7 +15,7 @@
     </form>
     <p>{{ structure }}</p>
     {% if URL!="" %}
-    <img src="{{ url_for("static", filename='imgs/'+URL+'.png') }}" alt="">
+    <img src="/home/MAgnitopic/orbe/static/imgs/"+{{URL}}+".png" alt="">
     {% endif %}
 </body>
 </html>
