@@ -58,7 +58,5 @@ def glaton():
     return render_template("galton.html",URL="")
 
 
-
-#Comment this on production
 if __name__=="__main__":
   app.run(debug=True)
