@@ -1,3 +1,4 @@
+
 import numpy as np
 import os
 import glob
@@ -32,11 +33,10 @@ def galtonboard(levels):
     name = str(abs(hash(datetime.now())))
 
     # Checks if the images will be saved where we think
-    dir_path=os.path.dirname(os.path.realpath(__file__))
-    if "orbe/py" not in dir_path:
-        route='~/orbe/static/imgs/'+str(name)+'.png'
-        
-    else:
-        route='static/imgs/'+str(name)+'.png'
+    dir_path=str(os.path.dirname(os.path.realpath(__file__)))
+    print("dir_path: "+dir_path)
+    route=dir_path+'/../static/imgs/'+str(name)+'.png'
     plt.savefig(route)
+    print("route: "+route)
+    print("image saved")
     return lanes,route

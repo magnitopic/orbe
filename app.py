@@ -52,7 +52,7 @@ def primos():
 def glaton():
   if ((request.method=='POST') and (request.form["number"]!="") and (int(request.form["number"])>1)):
     result=galtonboard(int(request.form["number"]))
-    print("static/imgs/"+result[1]+".png")
+    print(result[1])
     return render_template("galton.html",structure=result[0],URL=result[1])
   else:
     return render_template("galton.html",URL="")
