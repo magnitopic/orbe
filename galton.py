@@ -1,4 +1,3 @@
-
 import numpy as np
 import os
 import glob
@@ -32,10 +31,7 @@ def galtonboard(levels):
     #Gives the png a unique name
     name = str(abs(hash(datetime.now())))
 
-    # Checks if the images will be saved where we think
-    dir_path=str(os.path.dirname(os.path.realpath(__file__)))
-    print("dir_path: "+dir_path)
-    route=dir_path+'/../static/imgs/'+str(name)+'.png'
+    route='static/imgs/'+str(name)+'.png'
     plt.savefig(route)
     print("route: "+route)
     print("image saved")

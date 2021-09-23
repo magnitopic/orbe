@@ -4,7 +4,7 @@
 from flask import Flask, request, render_template, jsonify
 from flask.wrappers import Response
 from py.prime import makePrime
-from py.galton import galtonboard
+from galton import galtonboard
 import git # GitPython library
 import os
 
