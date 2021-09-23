@@ -6,21 +6,17 @@ https://magnitopic.pythonanywhere.com
 
 ![Orbe](./static/imgs/crystalball.jpeg)
 
-# Install
-## Virtual env
-First install the virtualenv package.
+# Virtual env
+Install the virtualenv package and create it. Make sure your in the proyect folder.
 ```bash
 pip install virtualenv
-```
-Now create it. Make sure your in the proyect directory.
-```bash
 virtualenv orbe
 ```
-### Activate VirtualEnv on Linux
+## Activate VirtualEnv on Linux
 ```bash
 source orbe/bin/activate
 ```
-### Activate VirtualEnv on Windows
+## Activate VirtualEnv on Windows
 ```powershell
 orbe\Scripts\activate
 ```
@@ -28,11 +24,11 @@ And to deactivate it on any operating system.
 ```bash
 deactivate
 ```
-## Install dependencies
+# Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
-## Run
+# Run
 ```bash
 python app.py
 ```
