@@ -32,31 +32,54 @@ def getPetrolPrice(provincia, producto):
 
 
 def getProvincias():
-    provincias = []
-    peticion = requests.get(
-        "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres")
-    contenido = json.loads(peticion.content)
-    listaEstaciones = contenido["ListaEESSPrecio"]
-    for estacion in listaEstaciones:
-        if estacion["Provincia"] not in provincias:
-            provincias.append(estacion["Provincia"])
+    file = open("./api/provincias.json", "r", encoding="utf-8")
+    provincias = file.read()
+    # print(provincias)
+    provincias = provincias.strip("[\"")
+    provincias = provincias.strip("\"]")
+    provincias = provincias.split('", "')
+    file.close()
     return provincias
 
 
-def generateProvincias():
+def getCombustibles():
+    file = open("./api/combustibles.json", "r", encoding="utf-8")
+    combustibles = file.read()
+    # print(combustibles)
+    combustibles = combustibles.strip("[\"")
+    combustibles = combustibles.strip("\"]")
+    combustibles = combustibles.split('", "')
+    file.close()
+    return combustibles
+
+
+def generateProvincias(peticion):
     provincias = []
-    peticion = requests.get(
-        "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres")
     contenido = json.loads(peticion.content)
     listaEstaciones = contenido["ListaEESSPrecio"]
     for estacion in listaEstaciones:
         if estacion["Provincia"] not in provincias:
             provincias.append(estacion["Provincia"])
-    print(provincias)
-    f = open("./api/provincias.json", "a")
-    f.write(str(provincias))
+    f = open("./api/provincias.json", "w")
+    f.write(str(provincias).replace("'", '"'))
+    f.close()
+
+
+def generateCombustible(peticion):
+    combustibles = []
+    contenido = json.loads(peticion.content)
+    listaEstaciones = contenido["ListaEESSPrecio"]
+    for estacion in listaEstaciones:
+        for i in estacion:
+            if "Precio " in i:
+                if i not in combustibles:
+                    combustibles.append(i)
+    f = open("./api/combustibles.json", "w")
+    f.write(str(combustibles).replace("'", '"'))
     f.close()
 
 
 if __name__ == "__main__":
-    generateProvincias()
+    peticion = requests.get("https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres")
+    generateProvincias(peticion)
+    generateCombustible(peticion)

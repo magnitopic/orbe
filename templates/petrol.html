@@ -14,6 +14,12 @@
 				<option value="{{i}}">{{i}}</option>
 				{% endfor %}
 			</select>
+			<label for="">Combustible</label>
+			<select name="combustible" id="">
+				{% for combustible in combustibles%}
+				<option value="{{combustible}}">{{combustible}}</option>
+				{% endfor %}
+			</select>
 		</form>
 		{% if provincia!="" %}
 		<p>Precio más barato de {{provincia}} es de {{petrolPrice}}€/l</p>

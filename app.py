@@ -4,9 +4,8 @@
 from flask import Flask, request, render_template, jsonify
 from flask.wrappers import Response
 from py.prime import makePrime
-from galton import galtonboard as galton
-from petrol import getPetrolPrice
-from petrol import getProvincias
+from galton import galtonboard
+from petrol import getPetrolPrice, getProvincias, getCombustibles
 import git  # GitPython library
 import os
 
@@ -60,7 +59,7 @@ def primos():
 @app.route('/galton/', methods=["GET", "POST"])
 def glaton():
     if ((request.method == 'POST') and (request.form["number"] != "") and (int(request.form["number"]) > 1)):
-        result = galton(int(request.form["number"]))
+        result = galtonboard(int(request.form["number"]))
         print(result[1])
         return render_template("galton.html", structure=result[0], URL=result[1])
     else:
@@ -69,7 +68,7 @@ def glaton():
 
 @app.route("/petrol/", methods=["GET"])
 def petrol():
-    return render_template("petrol.html", petrolPrice="", provincia="", provincias=getProvincias())
+    return render_template("petrol.html", petrolPrice="", provincia="", provincias=getProvincias(), combustibles=getCombustibles())
 
 
 @app.route("/petrol/<provincia>/<producto>/", methods=["GET"])
