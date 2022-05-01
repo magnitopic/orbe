@@ -11,7 +11,7 @@ def getPetrolPrice(provincia, producto):
     # inicializamos un diccionario. Buscamos la estación de precio menor
     estacionBarata = {}
     for estacion in listaEstaciones:
-        if provincia == "España":                       # Se escribe en capitalize
+        if provincia.upper() == "ESPAÑA":                       # Se escribe en capitalize
             # no todas las gasolineras tienen Biodiesel, por ejemplo, asi las quitamos
             if estacion[producto] != "":
                 if estacionBarata == {}:
@@ -53,7 +53,7 @@ def getCombustibles():
 
 
 def generateProvincias(peticion):
-    provincias = []
+    provincias = ["ESPAÑA"]
     contenido = json.loads(peticion.content)
     listaEstaciones = contenido["ListaEESSPrecio"]
     for estacion in listaEstaciones:
@@ -70,15 +70,15 @@ def generateCombustible(peticion):
     listaEstaciones = contenido["ListaEESSPrecio"]
     for estacion in listaEstaciones:
         for i in estacion:
-            if "Precio " in i:
-                if i not in combustibles:
-                    combustibles.append(i)
+            if "Precio " in i and i not in combustibles:
+                combustibles.append(i)
     f = open("./api/combustibles.json", "w")
     f.write(str(combustibles).replace("'", '"'))
     f.close()
 
 
 if __name__ == "__main__":
-    peticion = requests.get("https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres")
+    peticion = requests.get(
+        "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres")
     generateProvincias(peticion)
     generateCombustible(peticion)

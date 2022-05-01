@@ -72,9 +72,9 @@ def petrol():
     if len(request.args) > 0:
         provincia = request.args['provincia']
         combustible = request.args['combustible']
-        return render_template("petrol.html", petrolPrice=getPetrolPrice(provincia, combustible), provincia=provincia, provincias=getProvincias(), combustibles=getCombustibles())
+        return render_template("petrol.html", petrolPrice=getPetrolPrice(provincia, combustible), provincia=provincia, combustible=combustible, provincias=getProvincias(), combustibles=getCombustibles())
     else:
-        return render_template("petrol.html", petrolPrice="", provincia="", provincias=getProvincias(), combustibles=getCombustibles())
+        return render_template("petrol.html", petrolPrice="", provincias=getProvincias(), combustible="", combustibles=getCombustibles())
 
 
 if __name__ == "__main__":
