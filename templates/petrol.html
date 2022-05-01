@@ -7,7 +7,7 @@
 		<title>Precio petrolio</title>
 	</head>
 	<body>
-		<form action="petrol">
+		<form>
 			<label for="">Provincia</label>
 			<select name="provincia" id="ComunidadAutonoma">
 				{% for i in provincias %}
@@ -20,6 +20,7 @@
 				<option value="{{combustible}}">{{combustible}}</option>
 				{% endfor %}
 			</select>
+			<input type="submit" value="Submit">
 		</form>
 		{% if provincia!="" %}
 		<p>Precio más barato de {{provincia}} es de {{petrolPrice}}€/l</p>

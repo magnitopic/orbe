@@ -27,7 +27,6 @@ def getPetrolPrice(provincia, producto):
                 else:
                     if estacion[producto] < estacionBarata[producto]:
                         estacionBarata = estacion
-
     return estacionBarata[producto]
 
 

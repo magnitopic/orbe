@@ -3,6 +3,7 @@
 #from py import primos
 from flask import Flask, request, render_template, jsonify
 from flask.wrappers import Response
+from jinja2 import Undefined
 from py.prime import makePrime
 from galton import galtonboard
 from petrol import getPetrolPrice, getProvincias, getCombustibles
@@ -68,12 +69,12 @@ def glaton():
 
 @app.route("/petrol/", methods=["GET"])
 def petrol():
-    return render_template("petrol.html", petrolPrice="", provincia="", provincias=getProvincias(), combustibles=getCombustibles())
-
-
-@app.route("/petrol/<provincia>/<producto>/", methods=["GET"])
-def petrolPrice(provincia, producto):
-    return render_template("petrol.html", petrolPrice=getPetrolPrice(provincia, producto), provincia=provincia, provincias=getProvincias())
+    if len(request.args) > 0:
+        provincia = request.args['provincia']
+        combustible = request.args['combustible']
+        return render_template("petrol.html", petrolPrice=getPetrolPrice(provincia, combustible), provincia=provincia, provincias=getProvincias(), combustibles=getCombustibles())
+    else:
+        return render_template("petrol.html", petrolPrice="", provincia="", provincias=getProvincias(), combustibles=getCombustibles())
 
 
 if __name__ == "__main__":
