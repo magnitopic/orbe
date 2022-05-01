@@ -8,13 +8,13 @@
 </head>
 <body>
     <h1>Galton board</h1>
-    <form action="" method="POST">
+    <form method="POST">
         <label for="number">How many lanes do you want?</label><br><br>
         <input type="text" name="number">
         <input type="submit">
     </form>
-    <p>{{ structure }}</p>
     {% if URL!="" %}
+    <p>{{ structure }}</p>
     <img src="{{URL}}" alt="">
     {% endif %}
 </body>
