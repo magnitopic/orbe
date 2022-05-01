@@ -6,6 +6,7 @@ from flask.wrappers import Response
 from py.prime import makePrime
 from galton import galtonboard as galton
 from petrol import getPetrolPrice
+from petrol import getProvincias
 import git  # GitPython library
 import os
 
@@ -47,7 +48,7 @@ def api2():
     return jsonify(archivoJson)
 
 
-@app.route('/prime', methods=["GET", "POST"])
+@app.route('/prime/', methods=["GET", "POST"])
 def primos():
     if request.method == 'POST':
         n = request.form["number"]
@@ -56,7 +57,7 @@ def primos():
         return render_template("prime.html", list="", title="First prime numbers")
 
 
-@app.route('/galton', methods=["GET", "POST"])
+@app.route('/galton/', methods=["GET", "POST"])
 def glaton():
     if ((request.method == 'POST') and (request.form["number"] != "") and (int(request.form["number"]) > 1)):
         result = galton(int(request.form["number"]))
@@ -66,14 +67,14 @@ def glaton():
         return render_template("galton.html", URL="")
 
 
-@app.route("/petrol", methods=["GET"])
+@app.route("/petrol/", methods=["GET"])
 def petrol():
-    return render_template("petrol.html", petrolPrice="", provincia="")
+    return render_template("petrol.html", petrolPrice="", provincia="", provincias=getProvincias())
 
 
-@app.route("/petrol/<provincia>/<producto>", methods=["GET"])
+@app.route("/petrol/<provincia>/<producto>/", methods=["GET"])
 def petrolPrice(provincia, producto):
-    return render_template("petrol.html", petrolPrice=getPetrolPrice(provincia, producto), provincia=provincia)
+    return render_template("petrol.html", petrolPrice=getPetrolPrice(provincia, producto), provincia=provincia, provincias=getProvincias())
 
 
 if __name__ == "__main__":

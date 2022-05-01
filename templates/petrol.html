@@ -9,7 +9,11 @@
 	<body>
 		<form action="petrol">
 			<label for="">Provincia</label>
-			<select name="provincia" id="ComunidadAutonoma"></select>
+			<select name="provincia" id="ComunidadAutonoma">
+				{% for i in provincias %}
+				<option value="{{i}}">{{i}}</option>
+				{% endfor %}
+			</select>
 		</form>
 		{% if provincia!="" %}
 		<p>Precio más barato de {{provincia}} es de {{petrolPrice}}€/l</p>

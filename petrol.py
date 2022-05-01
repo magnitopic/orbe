@@ -31,13 +31,32 @@ def getPetrolPrice(provincia, producto):
     return estacionBarata[producto]
 
 
-def getStructure():
+def getProvincias():
+    provincias = []
     peticion = requests.get(
         "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres")
     contenido = json.loads(peticion.content)
     listaEstaciones = contenido["ListaEESSPrecio"]
-    
+    for estacion in listaEstaciones:
+        if estacion["Provincia"] not in provincias:
+            provincias.append(estacion["Provincia"])
+    return provincias
+
+
+def generateProvincias():
+    provincias = []
+    peticion = requests.get(
+        "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres")
+    contenido = json.loads(peticion.content)
+    listaEstaciones = contenido["ListaEESSPrecio"]
+    for estacion in listaEstaciones:
+        if estacion["Provincia"] not in provincias:
+            provincias.append(estacion["Provincia"])
+    print(provincias)
+    f = open("./api/provincias.json", "a")
+    f.write(str(provincias))
+    f.close()
 
 
 if __name__ == "__main__":
-    getStructure()
+    generateProvincias()
