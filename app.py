@@ -66,14 +66,14 @@ def glaton():
         return render_template("galton.html", URL="")
 
 
-@app.route("/petrol/<provincia>/<producto>", methods=["GET"])
-def petrol(provincia, producto):
-    return render_template("petrol.html", petrolPrice=getPetrolPrice(provincia, producto), provincia=provincia)
-
-
 @app.route("/petrol", methods=["GET"])
-def main():
-    return "yes"
+def petrol():
+    return render_template("petrol.html", petrolPrice="", provincia="")
+
+
+@app.route("/petrol/<provincia>/<producto>", methods=["GET"])
+def petrolPrice(provincia, producto):
+    return render_template("petrol.html", petrolPrice=getPetrolPrice(provincia, producto), provincia=provincia)
 
 
 if __name__ == "__main__":
