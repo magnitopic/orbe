@@ -10,28 +10,26 @@
 		<form>
 			<label for="">Provincia</label>
 			<select name="provincia" id="ComunidadAutonoma">
-				{% for i in provincias %}
-					{% if i == provincia%}
-					<option value="{{i}}" selected>{{i}}</option>
-					{% else %}
-					<option value="{{i}}">{{i}}</option>
-					{% endif %}
-				{% endfor %}
+				{% for i in provincias %} {% if i == provincia%}
+				<option value="{{i}}" selected>{{i}}</option>
+				{% else %}
+				<option value="{{i}}">{{i}}</option>
+				{% endif %} {% endfor %}
 			</select>
 			<label for="">Combustible</label>
 			<select name="combustible" id="">
-				{% for j in combustibles%}
-					{% if j == combustible%}
-					<option value="{{j}}" selected>{{j}}</option>
-					{% else %}
-					<option value="{{j}}">{{j}}</option>
-					{% endif %}
-				{% endfor %}
+				{% for j in combustibles%} {% if j == combustible%}
+				<option value="{{j}}" selected>{{j}}</option>
+				{% else %}
+				<option value="{{j}}">{{j}}</option>
+				{% endif %} {% endfor %}
 			</select>
 			<input type="submit" value="Submit" />
 		</form>
-		{% if provincia!="" or combustible!=""%}
+		{% if provincia!="" and petrolPrice!="" and petrolPrice != None%}
 		<p>Precio más barato de {{provincia}} es de {{petrolPrice}}€/l</p>
+		{% endif %} {% if petrolPrice == None %}
+		<p>Esta provincia no tiene este tipo de combustible.</p>
 		{% endif %}
 	</body>
 </html>

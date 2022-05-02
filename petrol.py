@@ -1,3 +1,4 @@
+from jinja2 import Undefined
 import requests
 import json
 
@@ -27,7 +28,10 @@ def getPetrolPrice(provincia, producto):
                 else:
                     if estacion[producto] < estacionBarata[producto]:
                         estacionBarata = estacion
-    return estacionBarata[producto]
+    if len(estacionBarata) == 0:
+        return None
+    else:
+        return estacionBarata[producto]
 
 
 def getProvincias():
