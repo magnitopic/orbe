@@ -4,67 +4,50 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="styles/petrol.css">
 		<title>Precio petrolio</title>
 	</head>
 	<body>
 		<form>
 			<label for="">Provincia</label>
 			<select name="provincia" id="ComunidadAutonoma">
-				{% for i in pyload["listaProvincias"] %} {% if i == pyload["provincia"]%}
-				<option value="{{i}}" selected>{{i}}</option>
-				{% else %}
-				<option value="{{i}}">{{i}}</option>
-				{% endif %} {% endfor %}
+				{% for i in pyload["listaProvincias"] %} 
+					{% if i == pyload["provincia"]%}
+						<option value="{{i}}" selected>{{i}}</option>
+					{% else %}
+						<option value="{{i}}">{{i}}</option>
+					{% endif %}
+				{% endfor %}
 			</select>
 			<label for="">Combustible</label>
 			<select name="combustible" id="">
-				{% for j in pyload["listaCombustibles"]%} {% if j == pyload["combustible"]%}
-				<option value="{{j}}" selected>{{j}}</option>
-				{% else %}
-				<option value="{{j}}">{{j}}</option>
-				{% endif %} {% endfor %}
+				{% for j in pyload["listaCombustibles"]%}
+					{% if j == pyload["combustible"]%}
+						<option value="{{j}}" selected>{{j}}</option>
+					{% else %}
+						<option value="{{j}}">{{j}}</option>
+					{% endif %}
+				{% endfor %}
 			</select>
 			<input type="submit" value="Submit" />
 		</form>
-		{% if pyload["provincia"]!="" and pyload["petrolPrice"]!="" and pyload["petrolPrice"] != None%}
-		<p>Precio más barato de {{pyload["provincia"]}} es de {{pyload["petrolPrice"]}}€/l</p>
-		{% endif %} 
-
-		{% if pyload["petrolPrice"] == None %}
-		<p>Esta provincia no tiene este tipo de combustible.</p>
+		{% if pyload["provincia"]!="" and pyload["combustible"] != "" %}
+			{% if pyload["petrolPrice"] == None %}
+				<p>Esta provincia no tiene este tipo de combustible.</p>
+			{% elif pyload["petrolPrice"] != None %}
+				<p>Precio más barato de {{pyload["provincia"]}} es de {{pyload["petrolPrice"]}}€/l</p>
+			
+				<!-- Code copied form: https://www.embedgooglemap.net/ -->
+				<div class="mapouter">
+					<div class="gmap_canvas">
+						<iframe width="600" height="500" id="gmap_canvas"
+						src="https://maps.google.com/maps?q={{f"{pyload["direccion"]}, {pyload["provincia"]}"}},%2026&t=&z=13&ie=UTF8&iwloc=&output=embed"
+						frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
+						></iframe>
+					</div>
+				</div>
+				<!-- End copied code -->
+			{% endif %}
 		{% endif %}
-
-		{% if pyload["direccion"]!="" and pyload["direccion"]!="" and pyload["direccion"] != None %}
-		<!-- Code copied form: https://www.embedgooglemap.net/ -->
-		<div class="mapouter">
-			<div class="gmap_canvas">
-			  <iframe width="600" height="500" id="gmap_canvas"
-			  src="https://maps.google.com/maps?q={{pyload["direccion"]}},%2026&t=&z=13&ie=UTF8&iwloc=&output=embed"
-			  frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
-			  ></iframe>
-			  <a href="https://123movies-to.org">123movies</a><br />
-			  <style>
-				.mapouter {
-				  position: relative;
-				  text-align: right;
-				  height: 500px;
-				  width: 600px;
-				}
-			  </style>
-			  <a href="https://www.embedgooglemap.net">
-				embed google maps website
-			  </a>
-			  <style>
-				.gmap_canvas {
-				  overflow: hidden;
-				  background: none !important;
-				  height: 500px;
-				  width: 600px;
-				}
-			  </style>
-			</div>
-		  </div>
-		  <!-- End copied code -->
-		  {% endif %}
 	</body>
 </html>
