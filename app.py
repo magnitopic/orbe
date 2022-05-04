@@ -32,22 +32,6 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/api1')
-def api1():
-    # JSON can be returned directlly like so:
-    return jsonify({"clave": "valor"})
-
-
-@app.route('/api2')
-def api2():
-    # Or you can open a JSON file and serve it's contents
-    file = open("./api/test.json", "rt", encoding="utf-8")
-    archivoJson = file.readlines()
-    file.close()
-    print(archivoJson)
-    return jsonify(archivoJson)
-
-
 @app.route('/prime/', methods=["GET", "POST"])
 def primos():
     if request.method == 'POST':
@@ -69,23 +53,28 @@ def glaton():
 
 @app.route("/petrol/", methods=["GET"])
 def petrol():
-    pyload = {}
-    pyload["listaProvincias"] = getProvincias()
-    pyload["listaCombustibles"] = getCombustibles()
-    if len(request.args) > 0:
-        pyload["provincia"] = request.args['provincia']
-        pyload["combustible"] = request.args['combustible']
-        pyload["petrolPrice"] = getPetrolPrice(
-            pyload["provincia"], pyload["combustible"])["precio"]
-        print(pyload["petrolPrice"])
-        pyload["direccion"]=getPetrolPrice(pyload["provincia"], pyload["combustible"])["direccion"]
-        return render_template("petrol.html", pyload=pyload)
-    else:
-        pyload["provincia"] = ""
-        pyload["combustible"] = ""
-        pyload["petrolPrice"] = ""
-        pyload["direccion"]=""
-        return render_template("petrol.html", pyload=pyload)
+    # default pyload values
+    pyload = {
+        "listaProvincias": getProvincias(),
+        "listaCombustibles": getCombustibles(),
+        "provincia" : "",
+        "combustible" : "",
+        "petrolPrice" : "",
+        "direccion" : "",
+    }
+
+    # TODO: check if request.args province and fuel have values
+    # TODO: variables with english names
+    if len(request.args) == 2:
+        pyload["provincia"] = request.args['provincia']     # Valid or invalid province
+        pyload["combustible"] = request.args['combustible'] # Valid or invalid fuel
+        pyload["petrolPrice"] = getPetrolPrice(pyload["provincia"], pyload["combustible"])["precio"]    # price value if valid, None if not
+        pyload["direccion"]=getPetrolPrice(pyload["provincia"], pyload["combustible"])["direccion"]     # address if valid, None if not
+
+    """ province and fuel lists are always returned
+        province and fuel can be empty("") or have the value passed in args(witch can be valid or not)
+        petrolPrice and direction can be empty(""), None or have correct values """
+    return render_template("petrol.html", pyload=pyload)
 
 
 if __name__ == "__main__":
