@@ -8,21 +8,24 @@ def getPetrolPrice(provincia, producto):
     contenido = json.loads(peticion.content)
     listaEstaciones = contenido["ListaEESSPrecio"]
     provincia = provincia.upper()
-    estacionBarata = ""
+    estacionBarata = {
+        "precio": None,
+        "direccion": None
+    }
 
     for estacion in listaEstaciones:
-        if provincia == estacion["Provincia"] or provincia == "ESPAÑA":
-            if estacion[producto] != "":
-                if estacionBarata == {}:
-                    estacionBarata = estacion
-                else:
-                    if estacion[producto] < estacionBarata[producto]:
-                        estacionBarata = estacion
+        try:
+            # API uses comas for decimals, god I hate this API
+            producto = float(estacion[producto].replace(",", "."))
+        except:
+            pass
+        else:
+            if provincia == "ESPAÑA" or provincia == estacion["Provincia"]:                 # We cheeck that the province that we want is the 
+                if estacionBarata["precio"] == None or producto < estacionBarata["precio"]:
+                    estacionBarata["precio"] = producto
+                    estacionBarata["direccion"] = estacion["Dirección"]
 
-    if len(estacionBarata) == 0:
-        return None
-    else:
-        return estacionBarata[producto]
+    return estacionBarata
 
 
 def getProvincias():

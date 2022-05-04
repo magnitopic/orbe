@@ -69,13 +69,23 @@ def glaton():
 
 @app.route("/petrol/", methods=["GET"])
 def petrol():
+    pyload = {}
+    pyload["listaProvincias"] = getProvincias()
+    pyload["listaCombustibles"] = getCombustibles()
     if len(request.args) > 0:
-        provincia = request.args['provincia']
-        combustible = request.args['combustible']
-        return render_template("petrol.html", petrolPrice=getPetrolPrice(provincia, combustible), provincia=provincia, combustible=combustible, provincias=getProvincias(), combustibles=getCombustibles())
-
+        pyload["provincia"] = request.args['provincia']
+        pyload["combustible"] = request.args['combustible']
+        pyload["petrolPrice"] = getPetrolPrice(
+            pyload["provincia"], pyload["combustible"])["precio"]
+        print(pyload["petrolPrice"])
+        pyload["direccion"]=getPetrolPrice(pyload["provincia"], pyload["combustible"])["direccion"]
+        return render_template("petrol.html", pyload=pyload)
     else:
-        return render_template("petrol.html", petrolPrice="", provincias=getProvincias(), combustible="", combustibles=getCombustibles())
+        pyload["provincia"] = ""
+        pyload["combustible"] = ""
+        pyload["petrolPrice"] = ""
+        pyload["direccion"]=""
+        return render_template("petrol.html", pyload=pyload)
 
 
 if __name__ == "__main__":
