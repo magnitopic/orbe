@@ -57,19 +57,21 @@ def petrol():
     pyload = {
         "listaProvincias": getProvincias(),
         "listaCombustibles": getCombustibles(),
-        "provincia" : "",
-        "combustible" : "",
-        "petrolPrice" : "",
-        "direccion" : "",
+        "provincia": "",
+        "combustible": "",
+        "petrolPrice": "",
+        "direccion": "",
     }
 
     # TODO: check if request.args province and fuel have values
     # TODO: variables with english names
     if len(request.args) == 2:
-        pyload["provincia"] = request.args['provincia']     # Valid or invalid province
-        pyload["combustible"] = request.args['combustible'] # Valid or invalid fuel
+        # Valid or invalid province
+        pyload["provincia"] = request.args['provincia']
+        # Valid or invalid fuel
+        pyload["combustible"] = request.args['combustible']
         pyload["petrolPrice"] = getPetrolPrice(pyload["provincia"], pyload["combustible"])["precio"]    # price value if valid, None if not
-        pyload["direccion"]=getPetrolPrice(pyload["provincia"], pyload["combustible"])["direccion"]     # address if valid, None if not
+        pyload["direccion"] = getPetrolPrice(pyload["provincia"], pyload["combustible"])["direccion"]     # address if valid, None if not
 
     """ province and fuel lists are always returned
         province and fuel can be empty("") or have the value passed in args(witch can be valid or not)

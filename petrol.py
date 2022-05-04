@@ -23,7 +23,7 @@ def getPetrolPrice(provincia, producto):
             if provincia == "ESPAÑA" or provincia == estacion["Provincia"]:                 # We cheeck that the province that we want is the 
                 if estacionBarata["precio"] == None or producto < estacionBarata["precio"]:
                     estacionBarata["precio"] = producto
-                    estacionBarata["direccion"] = estacion["Dirección"]
+                    estacionBarata["direccion"] = f'{estacion["Localidad"]} {estacion["Provincia"]} {estacion["Dirección"]}'
 
     return estacionBarata
 
