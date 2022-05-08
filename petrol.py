@@ -20,7 +20,8 @@ def getPetrolPrice(provincia, producto):
         except:
             pass
         else:
-            if provincia == "ESPAÑA" or provincia == estacion["Provincia"]:                 # We cheeck that the province that we want is the 
+            # We cheeck that the province that we want is the
+            if provincia == "ESPAÑA" or provincia == estacion["Provincia"]:
                 if estacionBarata["precio"] == None or producto < estacionBarata["precio"]:
                     estacionBarata["precio"] = producto
                     estacionBarata["direccion"] = f'{estacion["Localidad"]} {estacion["Provincia"]} {estacion["Dirección"]}'
@@ -29,24 +30,14 @@ def getPetrolPrice(provincia, producto):
 
 
 def getProvincias():
-    file = open("./api/provincias.json", "r", encoding="utf-8")
-    provincias = file.read()
-    # print(provincias)
-    provincias = provincias.strip("[\"")
-    provincias = provincias.strip("\"]")
-    provincias = provincias.split('", "')
-    file.close()
+    with open("./api/provincias.json") as f:
+        provincias = json.load(f)
     return provincias
 
 
 def getCombustibles():
-    file = open("./api/combustibles.json", "r", encoding="utf-8")
-    combustibles = file.read()
-    # print(combustibles)
-    combustibles = combustibles.strip("[\"")
-    combustibles = combustibles.strip("\"]")
-    combustibles = combustibles.split('", "')
-    file.close()
+    with open("./api/combustibles.json") as f:
+        combustibles = json.load(f)
     return combustibles
 
 
@@ -76,7 +67,6 @@ def generateCombustible(peticion):
 
 
 if __name__ == "__main__":
-    peticion = requests.get(
-        "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres")
+    peticion = requests.get(<"https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres")
     generateProvincias(peticion)
     generateCombustible(peticion)
