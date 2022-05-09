@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="styles/petrol.css">
+		<link rel="stylesheet" href="petrol.css">
 		<title>Precio petrolio</title>
 	</head>
 	<body>
@@ -39,14 +39,10 @@
 				<p>Dirección: {{pyload["direccion"]}}</p>
 			
 				<!-- Code copied form: https://www.embedgooglemap.net/ -->
-				<div class="mapouter">
-					<div class="gmap_canvas">
-						<iframe width="600" height="500" id="gmap_canvas"
-						src="https://maps.google.com/maps?q={{pyload["direccion"]}},%2026&t=&z=13&ie=UTF8&iwloc=&output=embed"
-						frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
-						></iframe>
-					</div>
-				</div>
+				<iframe width="600" height="500" id="gmap_canvas"
+				src="https://maps.google.com/maps?q={{pyload["direccion"]}},%2026&t=&z=13&ie=UTF8&iwloc=&output=embed"
+				frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
+				></iframe>
 				<!-- End copied code -->
 			{% endif %}
 		{% endif %}

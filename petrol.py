@@ -1,4 +1,3 @@
-from jinja2 import Undefined
 import requests
 import json
 
@@ -16,14 +15,14 @@ def getPetrolPrice(provincia, producto):
     for estacion in listaEstaciones:
         try:
             # API uses comas for decimals, god I hate this API
-            producto = float(estacion[producto].replace(",", "."))
+            price = float(estacion[producto].replace(",", "."))
         except:
             pass
         else:
             # We cheeck that the province that we want is the
             if provincia == "ESPAÑA" or provincia == estacion["Provincia"]:
-                if estacionBarata["precio"] == None or producto < estacionBarata["precio"]:
-                    estacionBarata["precio"] = producto
+                if estacionBarata["precio"] == None or price < estacionBarata["precio"]:
+                    estacionBarata["precio"] = price
                     estacionBarata["direccion"] = f'{estacion["Localidad"]} {estacion["Provincia"]} {estacion["Dirección"]}'
 
     return estacionBarata
@@ -67,6 +66,6 @@ def generateCombustible(peticion):
 
 
 if __name__ == "__main__":
-    peticion = requests.get(<"https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres")
+    peticion = requests.get("https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres")
     generateProvincias(peticion)
     generateCombustible(peticion)
