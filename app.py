@@ -6,7 +6,7 @@ from flask.wrappers import Response
 from jinja2 import Undefined
 from py.prime import makePrime
 from galton import galtonboard
-from petrol import getPetrolPrice, getProvincias, getCombustibles
+from petrol import getPetrolPrice, getProvinces, getFuels
 import git  # GitPython library
 import os
 
@@ -54,23 +54,22 @@ def glaton():
 def petrol():
     # default pyload values
     pyload = {
-        "listaProvincias": getProvincias(),
-        "listaCombustibles": getCombustibles(),
-        "provincia": "",
-        "combustible": "",
+        "provinceList": getProvinces(),
+        "fuelList": getFuels(),
+        "province": "",
+        "fuel": "",
         "petrolPrice": "",
         "direccion": "",
     }
 
     # TODO: check if request.args province and fuel have values
-    # TODO: variables with english names
     if len(request.args) == 2:
         # Valid or invalid province
-        pyload["provincia"] = request.args['provincia']
+        pyload["province"] = request.args['province']
         # Valid or invalid fuel
-        pyload["combustible"] = request.args['combustible']
-        pyload["petrolPrice"] = getPetrolPrice(pyload["provincia"], pyload["combustible"])["precio"]    # price value if valid, None if not
-        pyload["direccion"] = getPetrolPrice(pyload["provincia"], pyload["combustible"])["direccion"]     # address if valid, None if not
+        pyload["fuel"] = request.args['fuel']
+        pyload["petrolPrice"] = getPetrolPrice(pyload["province"], pyload["fuel"])["price"]    # price value if valid, None if not
+        pyload["direccion"] = getPetrolPrice(pyload["province"], pyload["fuel"])["direccion"]     # address if valid, None if not
 
     """ province and fuel lists are always returned
         province and fuel can be empty("") or have the value passed in args(witch can be valid or not)

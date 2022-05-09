@@ -2,13 +2,13 @@ import requests
 import json
 
 
-def getPetrolPrice(provincia, producto):
-    peticion = requests.get("https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres")
-    contenido = json.loads(peticion.content)
-    listaEstaciones = contenido["ListaEESSPrecio"]
-    provincia = provincia.upper()
-    estacionBarata = {
-        "precio": None,
+def getPetrolPrice(province, producto):
+    request = requests.get("https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres")
+    content = json.loads(request.content)
+    listaEstaciones = content["ListaEESSPrecio"]
+    province = province.upper()
+    cheepStation = {
+        "price": None,
         "direccion": None
     }
 
@@ -20,52 +20,53 @@ def getPetrolPrice(provincia, producto):
             pass
         else:
             # We cheeck that the province that we want is the
-            if provincia == "ESPAÑA" or provincia == estacion["Provincia"]:
-                if estacionBarata["precio"] == None or price < estacionBarata["precio"]:
-                    estacionBarata["precio"] = price
-                    estacionBarata["direccion"] = f'{estacion["Localidad"]} {estacion["Provincia"]} {estacion["Dirección"]}'
+            if province == "ESPAÑA" or province == estacion["province"]:
+                if cheepStation["price"] == None or price < cheepStation["price"]:
+                    cheepStation["price"] = price
+                    cheepStation["direccion"] = f'{estacion["Localidad"]} {estacion["province"]} {estacion["Dirección"]}'
 
-    return estacionBarata
-
-
-def getProvincias():
-    with open("./api/provincias.json") as f:
-        provincias = json.load(f)
-    return provincias
+    return cheepStation
 
 
-def getCombustibles():
-    with open("./api/combustibles.json") as f:
-        combustibles = json.load(f)
-    return combustibles
+def getProvinces():
+    with open("./api/provinces.json") as f:
+        provinces = json.load(f)
+    return provinces
 
 
-def generateProvincias(peticion):
-    provincias = ["ESPAÑA"]
-    contenido = json.loads(peticion.content)
-    listaEstaciones = contenido["ListaEESSPrecio"]
+def getFuels():
+    with open("./api/fuels.json") as f:
+        fuels = json.load(f)
+    return fuels
+
+
+def generateProvincesList(source):
+    # "España" is added since it isn't a province, it represents all of them country
+    provinces = ["ESPAÑA"]
+    content = json.loads(source.content)
+    listaEstaciones = content["ListaEESSPrecio"]
     for estacion in listaEstaciones:
-        if estacion["Provincia"] not in provincias:
-            provincias.append(estacion["Provincia"])
-    f = open("./api/provincias.json", "w")
-    f.write(str(provincias).replace("'", '"'))
+        if estacion["province"] not in provinces:
+            provinces.append(estacion["province"])
+    f = open("./api/provinces.json", "w")
+    f.write(str(provinces).replace("'", '"'))
     f.close()
 
 
-def generateCombustible(peticion):
-    combustibles = []
-    contenido = json.loads(peticion.content)
-    listaEstaciones = contenido["ListaEESSPrecio"]
+def generateFuelList(source):
+    fuels = []
+    content = json.loads(source.content)
+    listaEstaciones = content["ListaEESSPrecio"]
     for estacion in listaEstaciones:
         for i in estacion:
-            if "Precio " in i and i not in combustibles:
-                combustibles.append(i)
-    f = open("./api/combustibles.json", "w")
-    f.write(str(combustibles).replace("'", '"'))
+            if "Precio " in i and i not in fuels:
+                fuels.append(i)
+    f = open("./api/fuels.json", "w")
+    f.write(str(fuels).replace("'", '"'))
     f.close()
 
 
 if __name__ == "__main__":
-    peticion = requests.get("https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres")
-    generateProvincias(peticion)
-    generateCombustible(peticion)
+    source = requests.get("https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres")
+    generateProvincesList(source)
+    generateFuelList(source)
