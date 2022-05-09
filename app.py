@@ -65,9 +65,9 @@ def petrol():
     # TODO: check if request.args province and fuel have values
     if len(request.args) == 2:
         # Valid or invalid province
-        pyload["province"] = request.args['province']
+        pyload["province"] = request.args['provincia']
         # Valid or invalid fuel
-        pyload["fuel"] = request.args['fuel']
+        pyload["fuel"] = request.args['combustible']
         pyload["petrolPrice"] = getPetrolPrice(pyload["province"], pyload["fuel"])["price"]    # price value if valid, None if not
         pyload["direccion"] = getPetrolPrice(pyload["province"], pyload["fuel"])["direccion"]     # address if valid, None if not
 

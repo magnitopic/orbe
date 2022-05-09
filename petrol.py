@@ -5,25 +5,25 @@ import json
 def getPetrolPrice(province, producto):
     request = requests.get("https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres")
     content = json.loads(request.content)
-    listaEstaciones = content["ListaEESSPrecio"]
+    petrolStationList = content["ListaEESSPrecio"]
     province = province.upper()
     cheepStation = {
         "price": None,
         "direccion": None
     }
 
-    for estacion in listaEstaciones:
+    for station in petrolStationList:
         try:
             # API uses comas for decimals, god I hate this API
-            price = float(estacion[producto].replace(",", "."))
+            price = float(station[producto].replace(",", "."))
         except:
             pass
         else:
             # We cheeck that the province that we want is the
-            if province == "ESPAÑA" or province == estacion["province"]:
+            if province == "ESPAÑA" or province == station["province"]:
                 if cheepStation["price"] == None or price < cheepStation["price"]:
                     cheepStation["price"] = price
-                    cheepStation["direccion"] = f'{estacion["Localidad"]} {estacion["province"]} {estacion["Dirección"]}'
+                    cheepStation["direccion"] = f'{station["Localidad"]} {station["Provincia"]} {station["Dirección"]}'
 
     return cheepStation
 
@@ -44,10 +44,10 @@ def generateProvincesList(source):
     # "España" is added since it isn't a province, it represents all of them country
     provinces = ["ESPAÑA"]
     content = json.loads(source.content)
-    listaEstaciones = content["ListaEESSPrecio"]
-    for estacion in listaEstaciones:
-        if estacion["province"] not in provinces:
-            provinces.append(estacion["province"])
+    petrolStationList = content["ListaEESSPrecio"]
+    for station in petrolStationList:
+        if station["Provincia"] not in provinces:
+            provinces.append(station["Provincia"])
     f = open("./api/provinces.json", "w")
     f.write(str(provinces).replace("'", '"'))
     f.close()
@@ -56,9 +56,9 @@ def generateProvincesList(source):
 def generateFuelList(source):
     fuels = []
     content = json.loads(source.content)
-    listaEstaciones = content["ListaEESSPrecio"]
-    for estacion in listaEstaciones:
-        for i in estacion:
+    petrolStationList = content["ListaEESSPrecio"]
+    for station in petrolStationList:
+        for i in station:
             if "Precio " in i and i not in fuels:
                 fuels.append(i)
     f = open("./api/fuels.json", "w")
