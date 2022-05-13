@@ -42,7 +42,7 @@
 				{% if pyload["petrolPrice"] == None %}
 					<h2>Esta provincia no tiene este tipo de combustible.</h2>
 				{% elif pyload["petrolPrice"] != None %}
-					<h2>Precio más barato en {{pyload["province"]}} de {{pyload["fuel"].replace("Precio ","")}} es de {{pyload["petrolPrice"]}}€/l</h2><br>
+					<h2>Precio más barato en {{pyload["province"].lower.title()}} de {{pyload["fuel"].replace("Precio ","")}} es de {{pyload["petrolPrice"]}}€/l</h2><br>
 					<p>Dirección: {{pyload["direccion"]}}</p>
 				
 					<!-- Code copied form: https://www.embedgooglemap.net/ -->
