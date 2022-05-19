@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#from py import primos
+# from py import primos
 from flask import Flask, request, render_template, jsonify
 from flask.wrappers import Response
 from jinja2 import Undefined
 from py.prime import makePrime
 from galton import galtonboard
 from petrol import getPetrolPrice, getProvinces, getFuels
+from stocks import getStockPrice
 import git  # GitPython library
 import os
 
@@ -68,8 +69,10 @@ def petrol():
         pyload["province"] = request.args['provincia']
         # Valid or invalid fuel
         pyload["fuel"] = request.args['combustible']
-        pyload["petrolPrice"] = getPetrolPrice(pyload["province"], pyload["fuel"])["price"]    # price value if valid, None if not
-        pyload["direccion"] = getPetrolPrice(pyload["province"], pyload["fuel"])["direccion"]     # address if valid, None if not
+        pyload["petrolPrice"] = getPetrolPrice(pyload["province"], pyload["fuel"])[
+            "price"]    # price value if valid, None if not
+        pyload["direccion"] = getPetrolPrice(pyload["province"], pyload["fuel"])[
+            "direccion"]     # address if valid, None if not
 
     """ province and fuel lists are always returned
         province and fuel can be empty("") or have the value passed in args(witch can be valid or not)
@@ -77,6 +80,12 @@ def petrol():
     return render_template("petrol.html", pyload=pyload)
 
 
+@app.route("/stock/", methods=["GET"])
+def stocks():
+    price = getStockPrice("TSLA")
+    return render_template("stocks.html", price=price)
+
+
 if __name__ == "__main__":
-    """ app.run(debug=True) """
-    app.run(host='0.0.0.0', port=80)
+    app.run(debug=True)
+    """  app.run(host='0.0.0.0', port=80) """
