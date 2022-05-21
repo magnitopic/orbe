@@ -80,7 +80,7 @@ def petrol():
     return render_template("petrol.html", pyload=pyload)
 
 
-@app.route("/stock/", methods=["GET"])
+@app.route("/stocks/", methods=["GET"])
 def stocks():
     price = getStockPrice("TSLA")
     return render_template("stocks.html", price=price)
